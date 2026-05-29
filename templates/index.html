@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Погладить котика</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <h1>милый котик хочет чтобы ты его погладил</h1>
+    <img src="{{ url_for('static', filename='xc5QR.jpg') }}" alt="кот">
+    <p>Количество поглаживаний: <span id="likeCount">{{ likes }}</span></p>
+    <button onclick="sendLike()">погладить</button>
+    <p><small>Страница обновлена {{ views }}</small></p>
+
+    <script>
+        async function sendLike() {
+            const response = await fetch('/like', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('likeCount').innerText = data.likes;
+        }
+    </script>
+</body>
+</html>
